@@ -32,10 +32,16 @@ class Brain
         }
     }
 
+    public function sortByTotalRequests() {
+        uasort($this->endpoints, function ($e1, $e2) {
+            return $e1->number_of_total_requests < $e2->number_of_total_requests;
+        });
+    }
+
     public function sortByVideoRequestCounts()
     {
         uasort($this->videos, function ($v1, $v2) {
-            return $v1->number_of_requests > $v2->number_of_requests;
+            return $v1->number_of_requests < $v2->number_of_requests;
         });
     }
 
