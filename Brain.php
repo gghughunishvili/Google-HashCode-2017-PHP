@@ -38,6 +38,12 @@ class Brain
         });
     }
 
+    public function sortByLatencyToDataCenter() {
+        uasort($this->endpoints, function ($e1, $e2) {
+            return $e1->latency_to_datacenter < $e2->latency_to_datacenter;
+        });
+    }
+
     public function sortByVideoRequestCounts()
     {
         uasort($this->videos, function ($v1, $v2) {
