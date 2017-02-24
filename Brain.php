@@ -44,6 +44,14 @@ class Brain
         });
     }
 
+    public function sortByDifferenceBetweenCacheAndDataCenter() {
+        uasort($this->endpoints, function ($e1, $e2) {
+            $dif_e1 = $e1->latency_to_datacenter - end($e1->latency_to_cache);
+            $dif_e2 = $e2->latency_to_datacenter - end($e2->latency_to_cache);
+            return $dif_e1 < $dif_e2;
+        });
+    }
+
     public function sortByVideoRequestCounts()
     {
         uasort($this->videos, function ($v1, $v2) {
