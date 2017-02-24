@@ -2,12 +2,7 @@
 
 include_once "read.php";
 
-$brain->sortByRequestCounts();
-//$brain->sortByVideoRequestCounts();
-//$brain->sortByTotalRequests();
-//$brain->sortByLatencyToDataCenter();
-$brain->sortByDifferenceBetweenCacheAndDataCenter();
-$brain->calculateAndSaveInAnswerString();
+$brain->solution4();
 
 writeInFile($brain->answer_string);
 

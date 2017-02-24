@@ -62,6 +62,7 @@ class Brain
     /**/
     public function calculateAndSaveInAnswerString()
     {
+        $this->sortByRequestCounts();
         foreach ($this->endpoints as $endpoint) {
             foreach ($endpoint->statistics as $video_id => $request_amount) {
                 $video_size = $this->videos[$video_id]->size;
@@ -96,6 +97,26 @@ class Brain
             $str .= $tmp_str . "\n";
         }
         $this->answer_string = $str;
+    }
+
+    public function solution1() {
+        $this->sortByRequestCounts();
+        $this->calculateAndSaveInAnswerString();
+    }
+
+    public function solution2() {
+        $this->sortByTotalRequests();
+        $this->calculateAndSaveInAnswerString();
+    }
+
+    public function solution3() {
+        $this->sortByLatencyToDataCenter();
+        $this->calculateAndSaveInAnswerString();
+    }
+
+    public function solution4() {
+        $this->sortByDifferenceBetweenCacheAndDataCenter();
+        $this->calculateAndSaveInAnswerString();
     }
 
 }
