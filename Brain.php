@@ -24,6 +24,30 @@ class Brain
         }
     }
 
+    public function solution1()
+    {
+        $this->sortByRequestCounts();
+        $this->_calculateAndSaveInAnswerString();
+    }
+
+    public function solution2()
+    {
+        $this->sortByTotalRequests();
+        $this->_calculateAndSaveInAnswerString();
+    }
+
+    public function solution3()
+    {
+        $this->sortByLatencyToDataCenter();
+        $this->_calculateAndSaveInAnswerString();
+    }
+
+    public function solution4()
+    {
+        $this->sortByDifferenceBetweenCacheAndDataCenter();
+        $this->_calculateAndSaveInAnswerString();
+    }
+
     public function sortByRequestCounts()
     {
         foreach ($this->endpoints as $endpoint_id => $endpoint) {
@@ -32,19 +56,22 @@ class Brain
         }
     }
 
-    public function sortByTotalRequests() {
+    public function sortByTotalRequests()
+    {
         uasort($this->endpoints, function ($e1, $e2) {
             return $e1->number_of_total_requests < $e2->number_of_total_requests;
         });
     }
 
-    public function sortByLatencyToDataCenter() {
+    public function sortByLatencyToDataCenter()
+    {
         uasort($this->endpoints, function ($e1, $e2) {
             return $e1->latency_to_datacenter < $e2->latency_to_datacenter;
         });
     }
 
-    public function sortByDifferenceBetweenCacheAndDataCenter() {
+    public function sortByDifferenceBetweenCacheAndDataCenter()
+    {
         uasort($this->endpoints, function ($e1, $e2) {
             $dif_e1 = $e1->latency_to_datacenter - end($e1->latency_to_cache);
             $dif_e2 = $e2->latency_to_datacenter - end($e2->latency_to_cache);
@@ -59,8 +86,7 @@ class Brain
         });
     }
 
-    /**/
-    public function calculateAndSaveInAnswerString()
+    private function _calculateAndSaveInAnswerString()
     {
         $this->sortByRequestCounts();
         foreach ($this->endpoints as $endpoint) {
@@ -90,7 +116,7 @@ class Brain
 
     private function _saveInAnswerString($videos_at_cache)
     {
-        $str = (string)count($videos_at_cache) . "\n";
+        $str = (string) count($videos_at_cache) . "\n";
         foreach ($videos_at_cache as $cache_id => $video_ids) {
             $str .= $cache_id . " ";
             $tmp_str = implode($video_ids, ' ');
@@ -98,25 +124,4 @@ class Brain
         }
         $this->answer_string = $str;
     }
-
-    public function solution1() {
-        $this->sortByRequestCounts();
-        $this->calculateAndSaveInAnswerString();
-    }
-
-    public function solution2() {
-        $this->sortByTotalRequests();
-        $this->calculateAndSaveInAnswerString();
-    }
-
-    public function solution3() {
-        $this->sortByLatencyToDataCenter();
-        $this->calculateAndSaveInAnswerString();
-    }
-
-    public function solution4() {
-        $this->sortByDifferenceBetweenCacheAndDataCenter();
-        $this->calculateAndSaveInAnswerString();
-    }
-
 }
