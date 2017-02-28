@@ -9,6 +9,8 @@ class Video
     public $size;
 
     public $number_of_requests = 0;
+    
+    public $interested_endpoints_number = 0;
 
     public static $number_of_videos = 0;
 

@@ -54,5 +54,6 @@ for ($i = 0; $i < Endpoint::$number_of_request_descriptions; $i++) {
     // Advanced stuff
     $brain->endpoints[$endpoint_id]->number_of_total_requests += (int)$request_amount;
     $brain->videos[$video_id]->number_of_requests += (int)$request_amount;
+    $brain->videos[$video_id]->interested_endpoints_number ++;
 }
 //printJustArray($brain);

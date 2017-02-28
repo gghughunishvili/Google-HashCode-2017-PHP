@@ -44,8 +44,36 @@ class Brain
 
     public function solution4()
     {
+        $this->sortByInterestingVideos();
         $this->sortByDifferenceBetweenCacheAndDataCenter();
         $this->_calculateAndSaveInAnswerString();
+    }
+
+    public function solution5()
+    {
+        /**
+         * Under Development
+         * 
+         * take interesting videos and put in every possible cache where users are interested
+         */
+    }
+
+    public function removeUnimportantVideos()
+    {
+        foreach ($this->videos as $video_id => $video) {
+            if ($video->size > Cache::$capacity || $video->number_of_requests == 0) {
+                unset($this->videos[$video_id]);
+            }
+        }
+    }
+
+    public function sortByInterestingVideos()
+    {
+        uasort($this->videos, function ($v1, $v2) {
+            $interesting_1 = $v1->number_of_requests / $v1->size * $v1->interested_endpoints_number;
+            $interesting_2 = $v2->number_of_requests / $v2->size * $v2->interested_endpoints_number;
+            return $interesting_1 < $interesting_2;
+        });
     }
 
     public function sortByRequestCounts()

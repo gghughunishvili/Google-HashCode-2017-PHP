@@ -6,6 +6,6 @@ $brain->solution4();
 
 writeInFile($brain->answer_string);
 
-//printJustArray($brain);
+printJustArray($brain);
 
 echo "<br/> Celebration time! <br/>";
