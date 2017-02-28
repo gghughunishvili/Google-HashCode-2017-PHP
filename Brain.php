@@ -58,6 +58,12 @@ class Brain
          */
     }
 
+    public function solution6()
+    {
+        $this->removeUnimportantVideos();
+        $this->solution4();
+    }
+
     public function removeUnimportantVideos()
     {
         foreach ($this->videos as $video_id => $video) {
@@ -121,17 +127,19 @@ class Brain
             foreach ($endpoint->statistics as $video_id => $request_amount) {
                 $video_size = $this->videos[$video_id]->size;
                 // If our video is bigger then cache capacity we don't care for such video
-                if ($video_size > Cache::$capacity) {
+                /*if ($video_size > Cache::$capacity) {
                     //unset($this->videos[$video_id]);
+                    continue;
+                }*/
+
+                // if the video is to another cache from this endpoint then skip
+                // Pass video_id and all the neighbour caches
+                if ($this->_videoIsOnAnotherCache($video_id, $endpoint->latency_to_cache)) {
                     continue;
                 }
 
                 // Now if the video is good then store it in the available cache server. PS this cache data are sorted
                 foreach ($endpoint->latency_to_cache as $cache_id => $latency) {
-                    // if video id is already in cache then we don't care for this cache server
-                    if (isset($this->videos_at_cache[$cache_id]) && isset($this->videos_at_cache[$cache_id][$video_id])) {
-                        continue;
-                    }
                     if ($this->left_spaces_to_each_cache[$cache_id] >= $video_size) {
                         $this->left_spaces_to_each_cache[$cache_id] -= $video_size;
                         $this->videos_at_cache[$cache_id][$video_id] = $video_id;
@@ -151,5 +159,15 @@ class Brain
             $str .= $tmp_str . "\n";
         }
         $this->answer_string = $str;
+    }
+
+    private function _videoIsOnAnotherCache($video_id, $latency_to_caches){
+        $videos_at_cache = $this->videos_at_cache;
+        foreach ($latency_to_caches as $cache_id => $latency) {
+            if (isset($videos_at_cache[$cache_id]) && isset($videos_at_cache[$cache_id][$video_id])) {
+                return true;
+            }
+        }
+        return false;
     }
 }

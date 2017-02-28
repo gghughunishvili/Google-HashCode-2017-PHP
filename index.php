@@ -2,10 +2,10 @@
 
 include_once "read.php";
 
-$brain->solution4();
+$brain->solution6();
 
 writeInFile($brain->answer_string);
 
-printJustArray($brain);
+//printJustArray($brain);
 
 echo "<br/> Celebration time! <br/>";

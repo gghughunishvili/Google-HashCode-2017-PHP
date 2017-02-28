@@ -1,9 +1,9 @@
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-ini_set('max_execution_time', 300);
+ini_set('max_execution_time', 1000);
 error_reporting(E_ALL);
-$CHOOSE_FILE = 4;
+$CHOOSE_FILE = 3;
 
 
 $FILENAMES = ['me_at_the_zoo', 'trending_today', 'videos_worth_spreading', 'kittens', 'test'];
